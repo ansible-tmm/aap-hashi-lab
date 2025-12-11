@@ -1,0 +1,7 @@
+collections:
+  - name: amazon.aws
+  - name: cloud.terraform
+  - name: hashicorp.terraform
+  - name: hashicorp.vault
+  - name: google.cloud
+  - name: azure.azcollection
