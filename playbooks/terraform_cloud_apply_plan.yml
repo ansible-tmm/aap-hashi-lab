@@ -1,0 +1,52 @@
+---
+- name: Manage aws resources using Terraform Cloud
+  hosts: all
+  gather_facts: false
+  vars:
+    working_dir_name: "{{ input_tf_working_dir_name | default('provision_tfcloud_resources') }}"
+    tf_plan_file_name: "{{ input_tf_plan_file_name | default('provision_tfcloud_resources.tf') }}"
+    tf_vars_file_name: "{{ input_tf_vars_file_name | default('provision_tfcloud_resources.auto.tfvars') }}"
+    cloud_provider: "{{ input_cloud_provider | default('AWS') }}" 
+
+    aws_ami:
+      RHEL7: ami-06dcfc63
+      RHEL8: ami-0eda10ae068c51bc5
+      RHEL9: ami-003555ce5d8d2de2b
+    aws_ami_id: "{{ aws_ami[ec2_os] | default('ami-003555ce5d8d2de2b') }}"
+  tasks:
+
+  - name: Make sure working directory exists
+    ansible.builtin.file:
+      path: /var/terraform/plans/{{ working_dir_name }}
+      state: directory
+      mode: '0755'
+
+  - name: Copy the TF Plan
+    ansible.builtin.template:
+      src: "TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_plan_file_name }}.j2"
+      dest: /var/terraform/plans/{{ working_dir_name }}/{{ tf_plan_file_name }}
+
+  - name: Copy the TF Vars Template
+    ansible.builtin.template:
+      src: "TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_vars_file_name }}.j2"
+      dest: /var/terraform/plans/{{ working_dir_name }}/{{ tf_vars_file_name }}
+
+  - name: Create a new config version
+    hashicorp.terraform.configuration_version:
+      auto_queue_runs: false
+      tf_token: "{{ tfcloud_token }}"
+      organization: "{{ tfcloud_org }}"
+      workspace: "{{ tfcloud_workspace }}"
+      state: present
+      configuration_files_path: /var/terraform/plans/{{ working_dir_name }}
+
+  - name: Create a new TF run and apply the changes
+    hashicorp.terraform.run:
+      tf_token: "{{ tfcloud_token }}"
+      organization: "{{ tfcloud_org }}"
+      workspace: "{{ tfcloud_workspace }}"
+      run_message: "New run to provision resources from Ansible"
+      auto_apply: true
+      poll_interval: 5
+      poll_timeout: 360
+      state: "present"
