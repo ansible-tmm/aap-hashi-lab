@@ -23,12 +23,12 @@
 
   - name: Copy the TF Plan
     ansible.builtin.template:
-      src: "TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_plan_file_name }}.j2"
+      src: "../TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_plan_file_name }}.j2"
       dest: /var/terraform/plans/{{ working_dir_name }}/{{ tf_plan_file_name }}
 
   - name: Copy the TF Vars Template
     ansible.builtin.template:
-      src: "TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_vars_file_name }}.j2"
+      src: "../TFCloud_demo_templates/{{ cloud_provider }}/{{ tf_vars_file_name }}.j2"
       dest: /var/terraform/plans/{{ working_dir_name }}/{{ tf_vars_file_name }}
 
   - name: Create a new config version
