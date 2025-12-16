@@ -7,7 +7,7 @@
     tf_plan_file_name: "{{ input_tf_plan_file_name | default('provision_tf_resources.tf') }}"
     tf_vars_file_name: "{{ input_tf_vars_file_name | default('provision_tf_resources.auto.tfvars') }}"
     cloud_provider: "{{ input_cloud_provider | default('AWS') }}" 
-    aws_ami_id: "ami-003555ce5d8d2de2b"
+    aws_ami_id: "ami-0e6c4e94540d22db8"
 
   tasks:
 
