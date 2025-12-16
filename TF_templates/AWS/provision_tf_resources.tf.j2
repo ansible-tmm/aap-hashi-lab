@@ -1,9 +1,9 @@
 terraform {
 	backend "remote" {
-    organization = "{{ tfcloud_org }}" 
+    organization = "{{ tf_org }}" 
 
     workspaces { 
-      name = "{{ tfcloud_workspace }}" 
+      name = "{{ tf_workspace }}" 
     } 
 	}
 }

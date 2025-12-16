@@ -5,9 +5,11 @@
   tasks:
   - name: Create a destroy run to remove resources
     hashicorp.terraform.run:
-      tf_token: "{{ tfcloud_token }}"
-      organization: "{{ tfcloud_org }}"
-      workspace: "{{ tfcloud_workspace }}"
+      tf_hostname: "{{ tf_hostname }}"
+      tf_validate_certs: false
+      tf_token: "{{ tf_token }}"
+      organization: "{{ tf_org }}"
+      workspace: "{{ tf_workspace }}"
       run_message: "Destroy run to remove resources by Ansible"
       is_destroy: true
       auto_apply: true
