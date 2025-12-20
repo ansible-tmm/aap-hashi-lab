@@ -44,7 +44,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "Terraform_Demo_SG" {
-  name        = var.name_tag
+  name        = "${var.name_tag}-sg"
 
   ingress {
     from_port   = "22"
@@ -76,7 +76,7 @@ resource "aws_security_group" "Terraform_Demo_SG" {
 }
 
 resource "aws_key_pair" "Terraform_Demo_Key" {
-  key_name   = var.name_tag
+  key_name   = var.name_tag "${var.name_tag}-keypair"
   public_key = var.public_key
 }
 
