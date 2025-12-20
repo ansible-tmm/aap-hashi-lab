@@ -85,7 +85,7 @@ resource "aws_instance" "Terraform_Demo_EC2" {
   ami           = var.ami_id
   instance_type = var.instance_type
   security_groups = [aws_security_group.Terraform_Demo_SG.name]
-  key_name = var.name_tag
+  key_name = "${var.name_tag}-keypair"
   tags = {
                 Name = "${var.name_tag}-${count.index + 1}"
                 Provisioner = "Terraform"
