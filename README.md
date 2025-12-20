@@ -1,5 +1,8 @@
 # aap-hashi-lab
-content for the Ansible Automation Platform and HashiCorp Lab. 
-Terraform Enterprise
-Vault Enterprise
+**REPO 1 FOR THIS LAB**
 
+Content for the Ansible Automation Platform and HashiCorp Lab. 
+
+* Ansible Automation Platform
+* Terraform Enterprise
+* Vault Enterprise
