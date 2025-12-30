@@ -2,7 +2,14 @@
 - name: Install and configure Nginx web server
   hosts: all  # This will be overridden by the AAP inventory
   become: true # Use privilege escalation (sudo) to run the tasks
-
+  gather_facts: false
+  
+  pre_tasks:
+    - name: Wait for SSH to be available
+      ansible.builtin.wait_for_connection:
+        timeout: 300
+        delay: 5
+  
   tasks:
     - name: Ensure Nginx is installed (RHEL)
       ansible.builtin.dnf:
