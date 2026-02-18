@@ -7,8 +7,8 @@
     tf_plan_file_name: "{{ input_tf_plan_file_name | default('provision_tf_resources.tf') }}"
     tf_vars_file_name: "{{ input_tf_vars_file_name | default('provision_tf_resources.auto.tfvars') }}"
     cloud_provider: "{{ input_cloud_provider | default('AWS') }}" 
-#    aws_ami_id: "ami-0e6c4e94540d22db8"  # RHEL 9.7 private AMI
-    aws_ami_id: "ami-0d40a6bf9d3bfc868"  # RHEL 9.7 public AMI
+#   
+    aws_ami_id: "ami-035032ea878eca201"  # RHEL 9.7 public AMI
   tasks:
 
   - name: Make sure working directory exists
